@@ -23,36 +23,38 @@ import android.os.Build
 import android.text.Html
 import android.text.Spanned
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android.trackmysleepquality.database.SleepNight
 import java.text.SimpleDateFormat
-//import java.util.concurrent.TimeUnit
-//import java.util.*
+import java.util.concurrent.TimeUnit
+import java.util.*
 
 
-//private val ONE_MINUTE_MILLIS = TimeUnit.MILLISECONDS.convert(1, TimeUnit.MINUTES)
-//private val ONE_HOUR_MILLIS = TimeUnit.MILLISECONDS.convert(1, TimeUnit.HOURS)
+private val ONE_MINUTE_MILLIS = TimeUnit.MILLISECONDS.convert(1, TimeUnit.MINUTES)
+private val ONE_HOUR_MILLIS = TimeUnit.MILLISECONDS.convert(1, TimeUnit.HOURS)
 
-//fun convertDurationToFormatted(startTimeMilli: Long, endTimeMilli: Long, res: Resources): String {
-//    val durationMilli = endTimeMilli - startTimeMilli
-//    val weekdayString = SimpleDateFormat("EEEE", Locale.getDefault()).format(startTimeMilli)
-//    return when {
-//        durationMilli < ONE_MINUTE_MILLIS -> {
-//            val seconds = TimeUnit.SECONDS.convert(durationMilli, TimeUnit.MILLISECONDS)
-//            res.getString(R.string.seconds_length, seconds, weekdayString)
-//        }
-//        durationMilli < ONE_HOUR_MILLIS -> {
-//            val minutes = TimeUnit.MINUTES.convert(durationMilli, TimeUnit.MILLISECONDS)
-//            res.getString(R.string.minutes_length, minutes, weekdayString)
-//        }
-//        else -> {
-//            val hours = TimeUnit.HOURS.convert(durationMilli, TimeUnit.MILLISECONDS)
-//            res.getString(R.string.hours_length, hours, weekdayString)
-//        }
-//    }
-//}
+fun convertDurationToFormatted(startTimeMilli: Long, endTimeMilli: Long, res: Resources): String {
+    val durationMilli = endTimeMilli - startTimeMilli
+    val weekdayString = SimpleDateFormat("EEEE", Locale.getDefault()).format(startTimeMilli)
+    return when {
+        durationMilli < ONE_MINUTE_MILLIS -> {
+            val seconds = TimeUnit.SECONDS.convert(durationMilli, TimeUnit.MILLISECONDS)
+            res.getString(R.string.seconds_length, seconds, weekdayString)
+        }
+        durationMilli < ONE_HOUR_MILLIS -> {
+            val minutes = TimeUnit.MINUTES.convert(durationMilli, TimeUnit.MILLISECONDS)
+            res.getString(R.string.minutes_length, minutes, weekdayString)
+        }
+        else -> {
+            val hours = TimeUnit.HOURS.convert(durationMilli, TimeUnit.MILLISECONDS)
+            res.getString(R.string.hours_length, hours, weekdayString)
+        }
+    }
+}
 
 
 
@@ -136,36 +138,5 @@ fun formatNights(nights: List<SleepNight>, resources: Resources): Spanned {
     } else {
         @Suppress("DEPRECATION")
         return Html.fromHtml(sb.toString())
-    }
-}
-
-class TextItemViewHolder(val textView: TextView): RecyclerView.ViewHolder(textView)
-
-class SleepNightAdapter: RecyclerView.Adapter<TextItemViewHolder>() {
-    var data = listOf<SleepNight>()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
-
-    override fun getItemCount() = data.size
-
-    override fun onBindViewHolder(holder: TextItemViewHolder, position: Int) {
-        val item = data[position]
-        holder.textView.text = item.sleepQuality.toString()
-        if (item.sleepQuality <= 1) {
-            holder.textView.setTextColor(Color.RED)
-        } else {
-            holder.textView.setTextColor(Color.BLACK)
-        }
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TextItemViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context)
-
-        val view = layoutInflater
-            .inflate(R.layout.text_item_view, parent, false) as TextView
-
-        return TextItemViewHolder(view)
     }
 }

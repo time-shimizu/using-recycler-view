@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/layout/fragment_sleep_tracker.xml" value="0.10228271484375001" />
+        <entry key="app/src/main/res/layout/list_item_sleep_night.xml" value="0.14345703124999998" />
         <entry key="app/src/main/res/layout/text_item_view.xml" value="0.1015625" />
       </map>
     </option>
